@@ -1,13 +1,31 @@
 services:
   db:
-    image: postgres
+    image: postgres:12-bullseye
     restart: always
     environment:
       POSTGRES_PASSWORD: example
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - "pgdata:/var/lib/postgresql/data"
+      - "./teste.sql:/docker-entrypoint-initdb.d/init.sql"
+    ports:
+      - "7000:5432"
 
   java:
      build: ./java/
+
+  frontend:
+     build: ./frontend/
+     volumes:
+      - ./frontend/src:/usr/src/app/src
+
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8010:80"
+
 volumes:
   pgdata:
