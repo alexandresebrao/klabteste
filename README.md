@@ -104,7 +104,7 @@ O ambiente foi testado em máquinas Linux, mas devem funcionar também com windo
 **O frontend não há necessidade, mas ao alterar o
 fonte deverá recarregar manualmente a página**
 
-** A base de dados está vazia, utilize um conector como o DBeaver (https://dbeaver.io/) para se conectar e adicionar os dados do estoque (produtos) **
+**A base de dados está vazia, utilize um conector como o DBeaver (https://dbeaver.io/) para se conectar e adicionar os dados do estoque (produtos)**
 localhost:7000 usuário: postgres senha example
 
 
