@@ -1,0 +1,21 @@
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nome do Produto</th>
+        <th>Quantidade total</th>
+        <th>Quantidade defeito</th>
+        <th>Quantidade disponível para venda</th>
+        <th>Preço</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products" class="table-row">
+        <td>{{ product.nome }}</td>
+        <td>{{ product.quantidades }}</td>
+        <td>{{ product.defeitos }}</td>
+        <td>{{ product.quantidades - product.defeitos }}</td>
+        <td>{{ product.preco }}</td>
+      </tr>
+    </tbody>
+  </table>
+  

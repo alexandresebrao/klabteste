@@ -5,6 +5,7 @@ import com.example.demo.services.NativeScriptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,6 +48,8 @@ public class ProdutoModel implements Produtos {
                 map.put("id", rs.getObject("id"));
                 map.put("nome", rs.getObject("nome"));
                 map.put("preco", rs.getObject("preco"));
+                map.put("defeitos", rs.getObject("defeitos"));
+                map.put("quantidades", rs.getObject("quantidades"));
                 listMap.add(map);
             }
             return listMap;
@@ -63,17 +66,38 @@ public class ProdutoModel implements Produtos {
 
     public void insertProduct(Map<String, Object> product) throws SQLException {
         try {
-            StringBuilder sql = new StringBuilder();
-            sql.append("INSERT INTO produtos (nome, preco) VALUES ('")
-                    .append(product.get("name")).append("', ")
-                    .append(product.get("preco")).append(")");
+            // Monta a consulta SQL de inserção
+            String sql = "INSERT INTO produtos (nome, quantidades, defeitos, preco) VALUES (?, ?, ?, ?)";
+            
+            // Obtém uma conexão com o banco de dados
+            Connection connection = nativeScriptService.getConectionDb();
+            
+            // Cria um PreparedStatement com a consulta SQL
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            
+            // Define os valores dos parâmetros da consulta
+            preparedStatement.setString(1, (String) product.get("nome"));
+            preparedStatement.setInt(2, (int) product.get("quantidades"));
+            preparedStatement.setInt(3, (int) product.get("defeitos"));
 
-            System.out.println("SQL para inserir produto: " + sql);
-            nativeScriptService.execute(sql.toString());
+            // Converte o Double para BigDecimal
+            Double precoDouble = (Double) product.get("preco");
+            BigDecimal preco = BigDecimal.valueOf(precoDouble);
+            preparedStatement.setBigDecimal(4, preco);
+            
+            // Executa a consulta
+            preparedStatement.executeUpdate();
+            
+            // Fecha a conexão
+            preparedStatement.close();
+            connection.close();
+            
+            System.out.println("Produto inserido com sucesso.");
         } catch (Exception e) {
             System.out.println("Erro ao inserir produto: " + e.getMessage());
             e.printStackTrace();
             throw new SQLException("Erro ao inserir produto no banco de dados.", e.getMessage());
         }
     }
+
 }

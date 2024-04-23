@@ -12,7 +12,7 @@ import java.sql.*;
 
 @Component
 public class NativeScriptService {
-    private static final String URL = "jdbc:postgresql://db:5432/postgres";
+    private static final String URL = "jdbc:postgresql://localhost:7000/postgres";//Alterado pois com db:5432 não funcionou, apontar no dia da entrega
     private static final String USUARIO = "postgres";
     private static final String SENHA = "example";
 

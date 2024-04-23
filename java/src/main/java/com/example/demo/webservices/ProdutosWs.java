@@ -18,7 +18,7 @@ public class ProdutosWs {
         try {
             return ResponseEntity.ok(produtos.getAllProducts());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deu erro");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deu erro GET");
         }
     }
 
@@ -28,7 +28,7 @@ public class ProdutosWs {
             produtos.insertProduct(product);
             return ResponseEntity.ok("Produto criado com sucesso.");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deu erro");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deu erro POST");
         }
     }
 }
