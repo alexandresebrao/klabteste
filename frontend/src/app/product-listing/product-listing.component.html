@@ -1,21 +1,28 @@
-  <table class="table">
+<div class="filters">
+    <input type="number" [(ngModel)]="minPrice" placeholder="Preço mínimo" class="input-field" (input)="updateFilters()">
+    <input type="number" [(ngModel)]="maxPrice" placeholder="Preço máximo" class="input-field" (input)="updateFilters()">
+    <input type="number" [(ngModel)]="minQuantity" placeholder="Quantidade mínima" class="input-field" (input)="updateFilters()">
+    <input type="text" [(ngModel)]="nameFilter" placeholder="Nome do Produto" class="input-field" (input)="updateFilters()">
+</div>
+
+
+<table class="table">
     <thead>
-      <tr>
-        <th>Nome do Produto</th>
-        <th>Quantidade total</th>
-        <th>Quantidade defeito</th>
-        <th>Quantidade disponível para venda</th>
-        <th>Preço</th>
-      </tr>
+        <tr>
+            <th>Nome do Produto</th>
+            <th>Quantidade total</th>
+            <th>Quantidade defeito</th>
+            <th>Quantidade disponível para venda</th>
+            <th>Preço</th>
+        </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products" class="table-row">
-        <td>{{ product.nome }}</td>
-        <td>{{ product.quantidades }}</td>
-        <td>{{ product.defeitos }}</td>
-        <td>{{ product.quantidades - product.defeitos }}</td>
-        <td>{{ product.preco }}</td>
-      </tr>
+        <tr *ngFor="let product of filteredProducts" class="table-row">
+            <td>{{ product.nome }}</td>
+            <td>{{ product.quantidades }}</td>
+            <td>{{ product.defeitos }}</td>
+            <td>{{ product.quantidades - product.defeitos }}</td>
+            <td>{{ product.preco }}</td>
+        </tr>
     </tbody>
-  </table>
-  
+</table>
