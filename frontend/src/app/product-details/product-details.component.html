@@ -1,0 +1,19 @@
+<div class="product-details" *ngIf="product">
+    <h2 class="product-name">{{ product.nome }}</h2>
+    <div class="detail-row">
+        <div class="detail-label">Quantidade:</div>
+        <div class="detail-value">{{ product.quantidades | number }}</div>
+    </div>
+    <div class="detail-row">
+        <div class="detail-label">Defeitos:</div>
+        <div class="detail-value">{{ product.defeitos | number }}</div>
+    </div>
+    <div class="detail-row">
+        <div class="detail-label">Disponíveis:</div>
+        <div class="detail-value">{{ product.quantidades - product.defeitos | number }}</div>
+    </div>
+    <div class="detail-row">
+        <div class="detail-label">Preço:</div>
+        <div class="detail-value">{{ product.preco | currency }}</div>
+    </div>
+</div>

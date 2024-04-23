@@ -99,5 +99,46 @@ public class ProdutoModel implements Produtos {
             throw new SQLException("Erro ao inserir produto no banco de dados.", e.getMessage());
         }
     }
+    
+    @Override
+    public Object getProductDetails(int id) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            // Construa a consulta SQL para recuperar os detalhes do produto com o ID fornecido
+            String sql = "SELECT * FROM produtos WHERE id = ?";
+            connection = nativeScriptService.getConectionDb();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                // Se encontrar o produto, monte um mapa com os detalhes e retorne-o
+                Map<String, Object> productDetails = new HashMap<>();
+                productDetails.put("id", rs.getObject("id"));
+                productDetails.put("nome", rs.getObject("nome"));
+                productDetails.put("preco", rs.getObject("preco"));
+                productDetails.put("defeitos", rs.getObject("defeitos"));
+                productDetails.put("quantidades", rs.getObject("quantidades"));
+                return productDetails;
+            } else {
+                // Se não encontrar o produto, retorne null ou uma mensagem de erro
+                return null; // ou uma mensagem indicando que o produto não foi encontrado
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao obter detalhes do produto: " + e.getMessage());
+            e.printStackTrace();
+            throw new SQLException("Erro ao obter detalhes do produto no banco de dados.", e.getMessage());
+        } finally {
+            // Feche as conexões
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
 
 }

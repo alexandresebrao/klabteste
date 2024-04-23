@@ -10,5 +10,5 @@ public interface Produtos {
 
     public Object getAllProducts() throws SQLException ;
     
-    
+    public Object getProductDetails(int id) throws SQLException;
 }

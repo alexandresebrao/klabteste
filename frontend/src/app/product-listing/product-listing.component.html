@@ -14,15 +14,19 @@
             <th>Quantidade defeito</th>
             <th>Quantidade disponível para venda</th>
             <th>Preço</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let product of filteredProducts" class="table-row">
             <td>{{ product.nome }}</td>
-            <td>{{ product.quantidades }}</td>
-            <td>{{ product.defeitos }}</td>
-            <td>{{ product.quantidades - product.defeitos }}</td>
-            <td>{{ product.preco }}</td>
+            <td>{{ product.quantidades | number }}</td>
+            <td>{{ product.defeitos | number }}</td>
+            <td>{{ product.quantidades - product.defeitos | number }}</td>
+            <td>{{ product.preco | currency }}</td>
+            <td>
+                <button (click)="viewDetails(product.id)">View Details</button>
+            </td>
         </tr>
     </tbody>
 </table>

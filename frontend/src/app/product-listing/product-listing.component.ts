@@ -47,4 +47,11 @@ export class ProductListingComponent  {
   updateFilters() {
     this.applyFilters();
   }
+
+   // Navigate to the product details page
+   viewDetails(productId: number) {
+    // Assuming the route to the product details page is '/product-details/:id'
+    this.route.navigate(['/product-details', productId]);
+  }
+
 }

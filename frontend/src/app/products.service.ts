@@ -13,4 +13,8 @@ export class ProductsService {
   getProductsList(): Observable<Object[]> {
     return this.httpClient.get<Object[]>(this.baseURL);
   }
+
+  getProductDetails(productId: number): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/${productId}`);
+  }
 }

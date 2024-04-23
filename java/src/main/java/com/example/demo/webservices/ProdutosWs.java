@@ -31,4 +31,23 @@ public class ProdutosWs {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deu erro POST");
         }
     }
+    
+    
+    // Novo endpoint para obter os detalhes de um produto com um ID específico
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getProductDetails(@PathVariable("id") int id) {
+        try {
+            // Implemente a lógica para recuperar os detalhes do produto com o ID fornecido
+            Object productDetails = produtos.getProductDetails(id);
+            if (productDetails != null) {
+                return ResponseEntity.ok(productDetails);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao obter os detalhes do produto.");
+        }
+    }
+    
+    
 }
