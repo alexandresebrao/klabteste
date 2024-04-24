@@ -106,7 +106,6 @@ public class ProdutoModel implements Produtos {
         PreparedStatement preparedStatement = null;
 
         try {
-            // Construa a consulta SQL para recuperar os detalhes do produto com o ID fornecido
             String sql = "SELECT * FROM produtos WHERE id = ?";
             connection = nativeScriptService.getConectionDb();
             preparedStatement = connection.prepareStatement(sql);
@@ -114,7 +113,6 @@ public class ProdutoModel implements Produtos {
 
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                // Se encontrar o produto, monte um mapa com os detalhes e retorne-o
                 Map<String, Object> productDetails = new HashMap<>();
                 productDetails.put("id", rs.getObject("id"));
                 productDetails.put("nome", rs.getObject("nome"));
@@ -123,15 +121,13 @@ public class ProdutoModel implements Produtos {
                 productDetails.put("quantidades", rs.getObject("quantidades"));
                 return productDetails;
             } else {
-                // Se não encontrar o produto, retorne null ou uma mensagem de erro
-                return null; // ou uma mensagem indicando que o produto não foi encontrado
+                return null; 
             }
         } catch (SQLException e) {
             System.out.println("Erro ao obter detalhes do produto: " + e.getMessage());
             e.printStackTrace();
             throw new SQLException("Erro ao obter detalhes do produto no banco de dados.", e.getMessage());
         } finally {
-            // Feche as conexões
             if (preparedStatement != null) {
                 preparedStatement.close();
             }
@@ -140,5 +136,27 @@ public class ProdutoModel implements Produtos {
             }
         }
     }
+       
+    @Override
+    public void updateAvailableQuantity(int productId, int soldQuantity) throws SQLException {
+        try {
+            String sql = "UPDATE produtos SET quantidades = quantidades - ? WHERE id = ?";
+            Connection connection = nativeScriptService.getConectionDb();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1, soldQuantity);
+            preparedStatement.setInt(2, productId);
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            connection.close();
+
+            System.out.println("Quantidade disponível para venda atualizada com sucesso.");
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar quantidade disponível para venda: " + e.getMessage());
+            throw new SQLException("Erro ao atualizar quantidade disponível para venda no banco de dados.", e.getMessage());
+        }
+    }   
 
 }

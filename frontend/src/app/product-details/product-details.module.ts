@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const route = [{component: ProductDetailsComponent, path: ''}]
 
@@ -15,7 +16,8 @@ const route = [{component: ProductDetailsComponent, path: ''}]
     RouterModule.forChild(route), 
     HttpClientModule, 
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ]
 })
 export class ProductDetailsModule { }

@@ -32,12 +32,9 @@ public class ProdutosWs {
         }
     }
     
-    
-    // Novo endpoint para obter os detalhes de um produto com um ID específico
     @GetMapping("/{id}")
     public ResponseEntity<Object> getProductDetails(@PathVariable("id") int id) {
         try {
-            // Implemente a lógica para recuperar os detalhes do produto com o ID fornecido
             Object productDetails = produtos.getProductDetails(id);
             if (productDetails != null) {
                 return ResponseEntity.ok(productDetails);
@@ -48,6 +45,18 @@ public class ProdutosWs {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao obter os detalhes do produto.");
         }
     }
+    
+    @PutMapping("/{id}/quantidade")
+    public ResponseEntity<?> updateAvailableQuantity(@PathVariable int id, @RequestParam int quantidade) {
+        try {
+            produtos.updateAvailableQuantity(id, quantidade);
+            return ResponseEntity.ok().body("Quantidade disponível atualizada com sucesso.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body("Erro ao atualizar a quantidade disponível: " + e.getMessage());
+        }
+    }
+
     
     
 }
