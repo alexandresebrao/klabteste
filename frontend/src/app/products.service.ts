@@ -24,12 +24,15 @@ export class ProductsService {
     return this.httpClient.post(`${this.baseURLVendas}`, sales);
   }
 
-  // Nova função para atualizar a quantidade disponível para venda
   updateAvailableQuantity(productId: number, quantidadeVendida: number): Observable<object> {
     const body = {
       produtoId: productId,
       quantidades: quantidadeVendida
     };
     return this.httpClient.put(`${this.baseURL}/${productId}/quantidade`, body);
+  }
+
+  updateProductDetails(id: number, details: any): Observable<any> {
+    return this.httpClient.put(`${this.baseURL}/${id}`, details);
   }
 }

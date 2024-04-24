@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateProductsComponent } from '../update-products/update-products.component';
 
 @Component({
   templateUrl: './product-listing.component.html',
@@ -14,7 +16,10 @@ export class ProductListingComponent  {
   minQuantity: number;
   nameFilter: string = '';
 
-  constructor(private productService: ProductsService, private route: Router){}
+  constructor(
+    private productService: ProductsService, 
+    private route: Router,
+    private dialog: MatDialog){}
 
   ngOnInit(): void {
     this.getProductsList();
@@ -52,6 +57,18 @@ export class ProductListingComponent  {
    viewDetails(productId: number) {
     // Assuming the route to the product details page is '/product-details/:id'
     this.route.navigate(['/product-details', productId]);
+  }
+
+  openModalUpdate(productId: number) {
+    const dialogRef = this.dialog.open(UpdateProductsComponent, {
+      width: '50%',
+      height: '300px',
+      data: { product: productId }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      // Recarrega a página após fechar o modal
+      window.location.reload();
+    });
   }
 
 }

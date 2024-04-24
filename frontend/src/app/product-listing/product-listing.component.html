@@ -14,7 +14,7 @@
             <th>Quantidade defeito</th>
             <th>Quantidade disponível para venda</th>
             <th>Preço</th>
-            <th>Actions</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -25,7 +25,11 @@
             <td>{{ product.quantidades - product.defeitos | number }}</td>
             <td>{{ product.preco | currency }}</td>
             <td>
-                <button (click)="viewDetails(product.id)">View Details</button>
+                <button mat-button [matMenuTriggerFor]="menu"><i class="fa-solid fa-ellipsis"></i></button>
+                <mat-menu #menu="matMenu">
+                    <button class="details-button" (click)="viewDetails(product.id)">Detalhes do produto</button>
+                    <button class="updates-button" (click)="openModalUpdate(product)">Atualizar Produtos</button>
+                </mat-menu>
             </td>
         </tr>
     </tbody>

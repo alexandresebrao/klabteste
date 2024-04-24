@@ -157,6 +157,73 @@ public class ProdutoModel implements Produtos {
             System.out.println("Erro ao atualizar quantidade disponível para venda: " + e.getMessage());
             throw new SQLException("Erro ao atualizar quantidade disponível para venda no banco de dados.", e.getMessage());
         }
-    }   
+    }
+    
+    @Override
+    public void updateProductDetails(int productId, BigDecimal newPrice, int newDefects) {
+        try {
+            // Verifica se o novo preço é menor que o preço atual
+            BigDecimal currentPrice = getProductPrice(productId);
+            if (newPrice.compareTo(currentPrice) < 0) {
+                throw new IllegalArgumentException("O novo preço deve ser maior ou igual ao preço atual.");
+            }
+            
+            // Atualiza a quantidade com defeito e o preço
+            String sql = "UPDATE produtos SET preco = ?, defeitos = ? WHERE id = ?";
+            Connection connection = nativeScriptService.getConectionDb();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setBigDecimal(1, newPrice);
+            preparedStatement.setInt(2, newDefects);
+            preparedStatement.setInt(3, productId);
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            connection.close();
+
+            System.out.println("Detalhes do produto atualizados com sucesso.");
+        } catch (SQLException e) {
+            System.out.println("Erro ao atualizar detalhes do produto: " + e.getMessage());
+            throw new RuntimeException("Erro ao atualizar detalhes do produto no banco de dados.", e);
+        }
+    }
+
+    
+    @Override
+    public BigDecimal getProductPrice(int productId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            String sql = "SELECT preco FROM produtos WHERE id = ?";
+            connection = nativeScriptService.getConectionDb();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, productId);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return rs.getBigDecimal("preco");
+            } else {
+                throw new IllegalArgumentException("Produto não encontrado.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao obter preço do produto: " + e.getMessage());
+            throw new RuntimeException("Erro ao obter preço do produto no banco de dados.", e);
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+    }
+
+    
 
 }

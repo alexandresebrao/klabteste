@@ -1,3 +1,5 @@
+@import '../../../node_modules/@fortawesome/fontawesome-free/css/all.css';
+
 /* table */
 .table {
   width: 98.7%;
@@ -23,6 +25,12 @@
   font-weight: bold; 
 }
 
+.table td button{
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 
 /*inputs */
 .filters {
@@ -44,3 +52,40 @@
   border-color: #007bff;
 }
 
+/* Estilo para o botão que aciona o mat-menu */
+::ng-deep .mat-mdc-menu-panel {
+  color: #ffffff; 
+  border: none;
+  border-radius: 4px; 
+  padding: 8px 12px; 
+  cursor: pointer;
+}
+
+::ng-deep .mat-mdc-menu-content{
+  padding: 0!important;
+}
+
+/* Estilo para os itens do menu */
+::ng-deep .mat-mdc-menu-content button {
+  
+  padding: 8px 16px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  color: #333333;
+  background-color: #e7e9ea;;
+  cursor: pointer;
+  margin-left: 0;
+  border-radius: 5px;
+}
+
+/* Estilo para os itens do menu ao passar o mouse */
+::ng-deep .mat-menu-content button:hover {
+  background-color: #f0f0f0; 
+}
+
+::ng-deep .mat-mdc-menu-content .details-button{
+ margin-bottom: 10px;
+}

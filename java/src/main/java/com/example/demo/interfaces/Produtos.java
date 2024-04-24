@@ -1,5 +1,6 @@
 package com.example.demo.interfaces;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -13,4 +14,8 @@ public interface Produtos {
     public Object getProductDetails(int id) throws SQLException;
     
     public void updateAvailableQuantity(int productId, int soldQuantity) throws SQLException;
+   
+   public void updateProductDetails(int id, BigDecimal preco, int defeitos) throws SQLException;
+   
+   public BigDecimal getProductPrice(int productId);
 }

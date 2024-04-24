@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -57,6 +61,42 @@ public class ProdutosWs {
         }
     }
 
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProductDetails(@PathVariable int id, @RequestBody Map<String, Object> productDetails) {
+        try {
+            // Verifica se o produto existe
+            Object existingProduct = produtos.getProductDetails(id);
+            if (existingProduct == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            // Verifica se os novos valores foram fornecidos
+            if (!productDetails.containsKey("preco") || !productDetails.containsKey("defeitos")) {
+                return ResponseEntity.badRequest().body("Os novos valores de preço e quantidade com defeito são necessários.");
+            }
+
+            // Extrai os novos valores
+            Double precoValue = Double.valueOf(productDetails.get("preco").toString());
+            BigDecimal preco = BigDecimal.valueOf(precoValue);
+            int defeitos = (int) productDetails.get("defeitos");
+
+            // Atualiza o preço e a quantidade com defeito do produto no banco de dados
+            produtos.updateProductDetails(id, preco, defeitos);
+
+            // Retorna uma resposta de sucesso
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Detalhes do produto atualizados com sucesso.");
+            return ResponseEntity.ok().body(response);
+        } catch (SQLException e) {
+            // Em caso de erro, retorna uma resposta de erro interno do servidor
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Erro ao atualizar os detalhes do produto: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
     
     
 }
