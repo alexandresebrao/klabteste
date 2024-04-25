@@ -1,0 +1,65 @@
+.table-container {
+    // max-height: 90%;
+    max-height: 585px;
+    overflow-y: auto;
+    margin: 5px;
+}
+
+thead,
+tfoot {
+    position: sticky;
+    top: 0;
+    background-color: #ddd;
+}
+
+tfoot {
+    bottom: 0;
+}
+
+.sales-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sales-table th,
+.sales-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.sales-table th {
+    background-color: #f2f2f2;
+}
+
+.sales-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.sales-table tr:hover {
+    background-color: #ddd;
+}
+
+.total-label {
+    font-weight: bold;
+    text-align: right;
+}
+
+.total-value {
+    font-weight: bold;
+}
+
+.report-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.skeleton-row {
+    height: 20px;
+    background-color: #f2f2f2;
+    margin-bottom: 5px;
+  }

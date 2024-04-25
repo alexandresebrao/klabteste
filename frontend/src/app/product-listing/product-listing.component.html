@@ -1,12 +1,19 @@
+<p class="page-title">Listagem de Produtos</p>
 <div class="filters">
-    <input type="number" [(ngModel)]="minPrice" placeholder="Preço mínimo" class="input-field" (input)="updateFilters()">
-    <input type="number" [(ngModel)]="maxPrice" placeholder="Preço máximo" class="input-field" (input)="updateFilters()">
-    <input type="number" [(ngModel)]="minQuantity" placeholder="Quantidade mínima" class="input-field" (input)="updateFilters()">
-    <input type="text" [(ngModel)]="nameFilter" placeholder="Nome do Produto" class="input-field" (input)="updateFilters()">
+    <span class="filter-label">Filtros: </span>
+    <div class="filter-inputs">
+        <input type="number" [(ngModel)]="minPrice" placeholder="Preço mínimo" class="input-field"
+            (input)="updateFilters()">
+        <input type="number" [(ngModel)]="maxPrice" placeholder="Preço máximo" class="input-field"
+            (input)="updateFilters()">
+        <input type="number" [(ngModel)]="minQuantity" placeholder="Quantidade mínima" class="input-field"
+            (input)="updateFilters()">
+        <input type="text" [(ngModel)]="nameFilter" placeholder="Nome do Produto" class="input-field"
+            (input)="updateFilters()">
+    </div>
 </div>
 
-
-<table class="table">
+<table class="table" *ngIf="showTable">
     <thead>
         <tr>
             <th>Nome do Produto</th>
@@ -32,5 +39,30 @@
                 </mat-menu>
             </td>
         </tr>
+    </tbody>
+</table>
+
+<table class="table" *ngIf="!showTable">
+    <thead>
+        <tr>
+            <th>Nome do Produto</th>
+            <th>Quantidade total</th>
+            <th>Quantidade defeito</th>
+            <th>Quantidade disponível para venda</th>
+            <th>Preço</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td colspan="6">
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                </td>
+            </tr>
     </tbody>
 </table>

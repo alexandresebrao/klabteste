@@ -11,9 +11,14 @@ export class UpdateProductsComponent implements OnInit {
   productId: number;
   productName: String;
   newPrice: number;
-  newDefects: number;
-  existingPrice: number; // Adicione esta propriedade para armazenar o valor existente
+  newDefects: number = null;
+  existingPrice: number;
   errorMessage: string;
+  defectsRange: any;
+  qtdProducts: number;
+  defectsProducts: number;
+  maxProducts: any;
+
 
   constructor(
     private route: ActivatedRoute, 
@@ -23,10 +28,13 @@ export class UpdateProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('DATA', this.data);
     this.productId = this.data.product.id;
     this.existingPrice = this.data.product.preco;
     this.productName = this.data.product.nome;
+    this.qtdProducts = this.data.product.quantidades;
+    this.maxProducts = this.data.product.quantidades;
+    this.defectsProducts = this.data.product.defeitos;
+    this.defectsRange = this.generateDefectsRange();
   }
 
   updateProduct(): void {
@@ -55,7 +63,20 @@ export class UpdateProductsComponent implements OnInit {
   closeModal(): void {
     this.newPrice = null;
     this.newDefects = null;
-    this.errorMessage = null; // Limpe a mensagem de erro ao fechar o modal
+    this.errorMessage = null;
     this.dialogRef.close();
   }
+
+  generateDefectsRange(): number[] {
+    const minDefects = 0; 
+    const maxDefects = this.maxProducts ; 
+    const step = 1;
+
+    const range = [];
+    for (let i = minDefects; i <= maxDefects; i += step) {
+        range.push(i);
+    }
+    return range;
+}
+  
 }

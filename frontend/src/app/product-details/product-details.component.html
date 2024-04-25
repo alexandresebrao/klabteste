@@ -1,42 +1,25 @@
-<!-- <div class="product-details" *ngIf="product">
-    <h2 class="product-name">{{ product.nome }}</h2>
-    <div class="detail-row">
-        <div class="detail-label">Quantidade:</div>
-        <div class="detail-value">{{ product.quantidades | number }}</div>
+<p class="page-title">Detalhes do produto</p>
+<div class="container-products">
+    <div class="product-details" *ngIf="product">
+        <h2 class="product-name">{{ product.nome }}</h2>
+        <div class="detail-row">
+            <div class="detail-label">Quantidade:</div>
+            <div class="detail-value">{{ product.quantidades | number }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Defeitos:</div>
+            <div class="detail-value">{{ product.defeitos | number }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Disponíveis:</div>
+            <div class="detail-value">{{ (product.quantidades - product.defeitos) | number }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Preço:</div>
+            <div class="detail-value">{{ product.preco | currency }}</div>
+        </div>
+        <button class="sales" (click)="openModal()" *ngIf="(product.quantidades - product.defeitos) > 0">Cadastrar
+            Venda</button>
+        <span *ngIf="(product.quantidades - product.defeitos) <= 0">Não há disponibilidade para venda.</span>
     </div>
-    <div class="detail-row">
-        <div class="detail-label">Defeitos:</div>
-        <div class="detail-value">{{ product.defeitos | number }}</div>
-    </div>
-    <div class="detail-row">
-        <div class="detail-label">Disponíveis:</div>
-        <div class="detail-value">{{ product.quantidades - product.defeitos | number }}</div>
-    </div>
-    <div class="detail-row">
-        <div class="detail-label">Preço:</div>
-        <div class="detail-value">{{ product.preco | currency }}</div>
-    </div>
-    <button (click)="openModal()">Cadastrar Venda</button>
-</div> -->
-
-<div class="product-details" *ngIf="product">
-    <h2 class="product-name">{{ product.nome }}</h2>
-    <div class="detail-row">
-        <div class="detail-label">Quantidade:</div>
-        <div class="detail-value">{{ product.quantidades | number }}</div>
-    </div>
-    <div class="detail-row">
-        <div class="detail-label">Defeitos:</div>
-        <div class="detail-value">{{ product.defeitos | number }}</div>
-    </div>
-    <div class="detail-row">
-        <div class="detail-label">Disponíveis:</div>
-        <div class="detail-value">{{ (product.quantidades - product.defeitos) | number }}</div>
-    </div>
-    <div class="detail-row">
-        <div class="detail-label">Preço:</div>
-        <div class="detail-value">{{ product.preco | currency }}</div>
-    </div>
-    <button (click)="openModal()" *ngIf="(product.quantidades - product.defeitos) > 0">Cadastrar Venda</button>
-    <span *ngIf="(product.quantidades - product.defeitos) <= 0">Não há disponibilidade para venda.</span>
 </div>

@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Sales } from "./sales";
+import { Products } from "./products";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,10 @@ export class ProductsService {
   private baseURLVendas = 'http://localhost:8080/vendas';
 
   constructor(private httpClient: HttpClient) { }
+
+  insertProducts(products: Products): Observable<object> {
+    return this.httpClient.post(`${this.baseURL}`, products);
+  }
 
   getProductsList(): Observable<Object[]> {
     return this.httpClient.get<Object[]>(this.baseURL);
@@ -34,5 +39,9 @@ export class ProductsService {
 
   updateProductDetails(id: number, details: any): Observable<any> {
     return this.httpClient.put(`${this.baseURL}/${id}`, details);
+  }
+
+  getSalesReport(): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.baseURLVendas);
   }
 }

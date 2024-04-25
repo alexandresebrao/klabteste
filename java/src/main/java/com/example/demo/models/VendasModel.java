@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -32,8 +35,9 @@ public class VendasModel implements Vendas {
             preparedStatement.setString(2, (String) sale.get("comprador"));
             preparedStatement.setInt(3, (int) sale.get("quantidades"));
 
-            // Converter o valor Double para BigDecimal
-            Double totalVendaDouble = ((Number) sale.get("total_venda")).doubleValue();
+            // Converter o valor para Double
+            Number totalVendaNumber = (Number) sale.get("total_venda");
+            double totalVendaDouble = totalVendaNumber.doubleValue();
             BigDecimal totalVenda = BigDecimal.valueOf(totalVendaDouble);
             preparedStatement.setBigDecimal(4, totalVenda);
 
@@ -55,4 +59,46 @@ public class VendasModel implements Vendas {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+    
+    public Object getAllSales() throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            List<Map<String, Object>> listMap = new ArrayList<>();
+
+            //Construção da string SQL
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT * FROM vendas;");
+
+            //Abertura da conexão com o banco e abertura da PreparedStatement para comunicação
+            connection = nativeScriptService.getConectionDb();
+            preparedStatement = nativeScriptService.getPreparedStatementDb(sql.toString(), connection);
+
+            //Conversão e retorno das informações
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                Map<String,Object> map = new HashMap<>();
+                map.put("id", rs.getObject("id"));
+                map.put("comprador", rs.getObject("comprador"));
+                map.put("produto_id", rs.getObject("produto_id"));
+                map.put("quantidades", rs.getObject("quantidades"));
+                map.put("total_venda", rs.getObject("total_venda"));
+                listMap.add(map);
+            }
+            return listMap;
+        } catch (SQLException e) {
+            System.out.println("Erro ao consultar o relatorio de vendas: " + e.getMessage());
+            e.printStackTrace();
+            throw new SQLException("Erro ao consultar o relatorio de vendas no banco de dados.", e.getMessage());
+        } finally {
+            //Fechamento das conexões
+            connection.close();
+            preparedStatement.close();
+        }
+    }
+    
+    
+    
 }

@@ -1,1 +1,23 @@
-<router-outlet></router-outlet>
+<nav class="navbar">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a (click)="navigateToCreatedProduct()" class="nav-link">Cadastrar Produtos</a>
+        </li>
+        <li class="nav-item">
+            <a (click)="navigateToListingProducts()" class="nav-link">Lista de Produtos</a>
+        </li>
+        <li class="nav-item">
+            <a (click)="navigateToSalesReport()" class="nav-link">Relatório de Vendas</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
+
+<footer class="footer">
+    <div class="container-footer">
+        <span>All Rights Reserved 2024</span>
+    </div>
+</footer>

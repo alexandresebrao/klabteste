@@ -1,50 +1,36 @@
+/* Importação do FontAwesome */
 @import '../../../node_modules/@fortawesome/fontawesome-free/css/all.css';
 
-/* table */
-.table {
-  width: 98.7%;
-  border-collapse: collapse;
-  margin: 10px;
-  border: 1px solid #ccc;
+/* Estilos para o título da página */
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  justify-content: center;
+  display: flex;
 }
 
-/* rows table */
-.table-row {
-  border-bottom: 1px solid #ccc;
-}
-
-/* cel table */
-.table td, .table th {
-  padding: 8px; 
-  text-align: left; 
-}
-
-/* table header */
-.table th {
-  background-color: #f2f2f2; 
-  font-weight: bold; 
-}
-
-.table td button{
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-
-/*inputs */
+/* Estilos para os filtros */
 .filters {
-  display: flex; 
-  justify-content: space-between; 
-  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.filter-label {
+  margin-right: 10px;
+}
+
+.filter-inputs {
+  display: flex;
 }
 
 .input-field {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: calc(25% - 10px);
-  box-sizing: border-box;
+  margin-right: 10px;
 }
 
 .input-field:focus {
@@ -52,22 +38,49 @@
   border-color: #007bff;
 }
 
-/* Estilo para o botão que aciona o mat-menu */
-::ng-deep .mat-mdc-menu-panel {
-  color: #ffffff; 
+/* Estilos para a tabela */
+.table {
+  width: 98.7%;
+  border-collapse: collapse;
+  margin: 10px;
+  border: 1px solid #ccc;
+}
+
+.table-row {
+  border-bottom: 1px solid #ccc;
+}
+
+.table td,
+.table th {
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.table td button {
+  background: transparent;
   border: none;
-  border-radius: 4px; 
-  padding: 8px 12px; 
   cursor: pointer;
 }
 
-::ng-deep .mat-mdc-menu-content{
-  padding: 0!important;
+/* Estilos específicos para o menu do Angular Material */
+::ng-deep .mat-mdc-menu-panel {
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
 }
 
-/* Estilo para os itens do menu */
+::ng-deep .mat-mdc-menu-content {
+  padding: 0 !important;
+}
+
 ::ng-deep .mat-mdc-menu-content button {
-  
   padding: 8px 16px;
   display: block;
   width: 100%;
@@ -75,17 +88,23 @@
   border: none;
   background-color: transparent;
   color: #333333;
-  background-color: #e7e9ea;;
+  background-color: #e7e9ea;
   cursor: pointer;
   margin-left: 0;
   border-radius: 5px;
 }
 
-/* Estilo para os itens do menu ao passar o mouse */
 ::ng-deep .mat-menu-content button:hover {
-  background-color: #f0f0f0; 
+  background-color: #f0f0f0;
 }
 
-::ng-deep .mat-mdc-menu-content .details-button{
- margin-bottom: 10px;
+::ng-deep .mat-mdc-menu-content .details-button {
+  margin-bottom: 10px;
+}
+
+/* Estilos para o esqueleto da linha da tabela */
+.skeleton-row {
+  height: 20px;
+  background-color: #f2f2f2;
+  margin-bottom: 5px;
 }

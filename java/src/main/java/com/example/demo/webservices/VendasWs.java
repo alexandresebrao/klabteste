@@ -83,6 +83,13 @@ public class VendasWs {
         }
     }
 
-
+    @GetMapping()
+    public ResponseEntity<Object> getAllSales() {
+        try {
+            return ResponseEntity.ok(vendas.getAllSales());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deu erro GET");
+        }
+    }
 
 }

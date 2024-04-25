@@ -7,14 +7,14 @@ import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 
-const route = [{component: ProductDetailsComponent, path: ''}]
+const route = [{ component: ProductDetailsComponent, path: '' }]
 
 @NgModule({
   declarations: [ProductDetailsComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(route), 
-    HttpClientModule, 
+    RouterModule.forChild(route),
+    HttpClientModule,
     FormsModule,
     MatCardModule,
     MatDialogModule

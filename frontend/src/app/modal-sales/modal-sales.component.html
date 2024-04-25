@@ -1,13 +1,18 @@
 <form class="modal-content">
-    <span class="modal-close" (click)="closeModal()">X</span>
-    <h2 class="modal-title">Cadastrar Venda</h2>
-    <div class="modal-form-group">
-      <label for="nome">Nome do Cliente:</label>
-      <input type="text" id="nome" name="nome" [(ngModel)]="nome" required>
-    </div>
-    <div class="modal-form-group">
-      <label for="quantidade">Quantidade:</label>
-      <input type="number" id="quantidade" name="quantidade" [(ngModel)]="quantidade" required>
-    </div>
-    <button type="button" class="modal-button" (click)="cadastrarVenda()">Cadastrar</button>
+  <span class="modal-close" (click)="closeModal()">X</span>
+  <h2 class="modal-title">Cadastrar Venda</h2>
+  <div class="modal-form-group">
+    <label for="nome">Nome do Cliente:</label>
+    <input type="text" id="nome" name="nome" [(ngModel)]="nome" required>
+  </div>
+  <div class="modal-form-group">
+    <label for="quantidade">Quantidade:</label>
+    <select id="quantidade" name="quantidade" [(ngModel)]="quantidade" required>
+      <option *ngFor="let q of quantidadeDisponivel" [ngValue]="q">{{ q }}</option>
+    </select>
+</div>
+
+  <button type="button" class="modal-button" (click)="cadastrarVenda()" 
+          [ngClass]="{ 'disable-button' : !nome || quantidade === 0 }">Cadastrar</button>
 </form>
+

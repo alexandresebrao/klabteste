@@ -38,7 +38,6 @@ public class NativeScriptService {
     }
 
     // Preparações isoladas
-
     public Connection getConectionDb() throws SQLException {
         return DriverManager.getConnection(URL, USUARIO, SENHA);
     }

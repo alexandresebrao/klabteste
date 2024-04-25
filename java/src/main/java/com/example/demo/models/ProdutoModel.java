@@ -33,15 +33,12 @@ public class ProdutoModel implements Produtos {
         try {
             List<Map<String, Object>> listMap = new ArrayList<>();
 
-            //Construção da string SQL
             StringBuilder sql = new StringBuilder();
             sql.append("SELECT * FROM produtos;");
 
-            //Abertura da conexão com o banco e abertura da PreparedStatement para comunicação
             connection = nativeScriptService.getConectionDb();
             preparedStatement = nativeScriptService.getPreparedStatementDb(sql.toString(), connection);
 
-            //Conversão e retorno das informações
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 Map<String,Object> map = new HashMap<>();
@@ -81,9 +78,15 @@ public class ProdutoModel implements Produtos {
             preparedStatement.setInt(3, (int) product.get("defeitos"));
 
             // Converte o Double para BigDecimal
-            Double precoDouble = (Double) product.get("preco");
+            //Double precoDouble = (Double) product.get("preco");
+           // BigDecimal preco = BigDecimal.valueOf(precoDouble);
+            //preparedStatement.setBigDecimal(4, preco);
+            
+            // Converter o valor Double para BigDecimal
+            Double precoDouble = ((Number) product.get("preco")).doubleValue();
             BigDecimal preco = BigDecimal.valueOf(precoDouble);
             preparedStatement.setBigDecimal(4, preco);
+
             
             // Executa a consulta
             preparedStatement.executeUpdate();

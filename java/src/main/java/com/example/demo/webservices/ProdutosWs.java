@@ -27,12 +27,20 @@ public class ProdutosWs {
     }
 
     @PostMapping()
-    public ResponseEntity<String> createProduct(@RequestBody Map<String, Object> product) {
+    public ResponseEntity<Map<String, Object>> createProduct(@RequestBody Map<String, Object> product) {
         try {
             produtos.insertProduct(product);
-            return ResponseEntity.ok("Produto criado com sucesso.");
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Produto cadastrado com sucesso.");
+            return ResponseEntity.ok().body(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deu erro POST");
+            System.out.println("Erro ao cadastrar venda: " + e.getMessage());
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Erro ao inserir produto no banco de dados.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            //return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deu erro POST");
         }
     }
     

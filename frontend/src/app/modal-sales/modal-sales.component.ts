@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductsService } from '../products.service';
 import { Sales } from '../sales';
@@ -14,12 +14,14 @@ import { Location } from '@angular/common';
 export class ModalSalesComponent {
   nome: string = '';
   quantidade: number = 0;
-  produtoId: number = 0; 
+  defeitos: number = 0;
+  produtoId: number = 0;
   precoUnitario: number = 0;
   salesSubscription: Subscription;
-
+  quantidadeVenda: number;
+  quantidadeDisponivel: number[] = [];
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     public dialogRef: MatDialogRef<ModalSalesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private productService: ProductsService,
@@ -28,12 +30,16 @@ export class ModalSalesComponent {
   ) {
     this.produtoId = data.product.id;
     this.precoUnitario = data.product.preco;
+    this.quantidade = data.product.quantidades;
+    this.defeitos = data.product.defeitos;
+    this.updateQuantidadeDisponivel();
+    
   }
 
   cadastrarVenda() {
     const totalVenda = this.precoUnitario * this.quantidade;
     const venda = new Sales(this.nome, this.produtoId, this.quantidade, Number(totalVenda.toFixed(2)));
-    
+
     this.productService.sales(venda).subscribe(resp => {
       console.log('resp', resp);
       this.closeModal();
@@ -41,11 +47,18 @@ export class ModalSalesComponent {
       console.error('Erro ao cadastrar venda:', error);
     });
   }
-  
+
   closeModal() {
-    
+
     this.nome = '';
     this.quantidade = 0;
     this.dialogRef.close();
+  }
+
+  updateQuantidadeDisponivel() {
+    this.quantidadeDisponivel = [];
+    for (let i = 0; i <= this.quantidade - this.defeitos; i++) {
+      this.quantidadeDisponivel.push(i);
+    }
   }
 }

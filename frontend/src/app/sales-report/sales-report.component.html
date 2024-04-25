@@ -1,0 +1,42 @@
+<p class="report-title">Relatório De Vendas</p>
+<div class="table-container">
+    <table class="sales-table">
+        <thead>
+            <tr>
+                <th>ID da Venda</th>
+                <th>ID do Produto</th>
+                <th>Comprador</th>
+                <th>Quantidade Vendida</th>
+                <th>Total da Venda</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="showSkeleton">
+            <tr *ngFor="let sale of sales">
+                <td>{{ sale.id }}</td>
+                <td>{{ sale.produto_id }}</td>
+                <td>{{ sale.comprador }}</td>
+                <td>{{ sale.quantidades | number }}</td>
+                <td>{{ sale.total_venda | currency }}</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!showSkeleton">
+            <tr>
+                <td colspan="6">
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                    <div class="skeleton-row"></div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td>{{ getTotalQuantity() | number }}</td>
+                <td>{{ getTotalSales() | currency }}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

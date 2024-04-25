@@ -15,7 +15,8 @@ export class ProductListingComponent  {
   maxPrice: number;
   minQuantity: number;
   nameFilter: string = '';
-
+  showTable: boolean = false;
+  
   constructor(
     private productService: ProductsService, 
     private route: Router,
@@ -29,6 +30,7 @@ export class ProductListingComponent  {
   private getProductsList() {
     this.productService.getProductsList().subscribe(resp => {
       this.products = resp;
+      this.showTable = true;
       this.applyFilters();
     });
   }
@@ -36,14 +38,9 @@ export class ProductListingComponent  {
   //The apply filters in table
   private applyFilters() {
     this.filteredProducts = this.products.filter(product => {
-      console.log('Filtros atuais:', this.minPrice, this.maxPrice, this.minQuantity, this.nameFilter);
-      console.log('Produto:', product);
       const precoInRange = (!this.minPrice || product.preco >= this.minPrice) && (!this.maxPrice || product.preco <= this.maxPrice);
       const quantidadesInRange = (!this.minQuantity || product.quantidades >= this.minQuantity);
       const nomeMatch = (!this.nameFilter || product.nome.toLowerCase().includes(this.nameFilter.toLowerCase()));
-      console.log('Preço no intervalo:', precoInRange);
-      console.log('Quantidade no intervalo:', quantidadesInRange);
-      console.log('Nome corresponde:', nomeMatch);
       return precoInRange && quantidadesInRange && nomeMatch;
     });
   }
@@ -55,7 +52,6 @@ export class ProductListingComponent  {
 
    // Navigate to the product details page
    viewDetails(productId: number) {
-    // Assuming the route to the product details page is '/product-details/:id'
     this.route.navigate(['/product-details', productId]);
   }
 
