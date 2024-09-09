@@ -1,0 +1,51 @@
+<div class="table-container">
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="listaProdutos" matSort>
+      <ng-container matColumnDef="nomeProduto">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Nome do Produto
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.nomeProduto }}</td>
+      </ng-container>
+      <ng-container matColumnDef="quantidadeTotal">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Quantidade Total
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.quantidadeTotal }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="quantidadeDefeitos">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Quantidade Defeito
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.quantidadeDefeitos }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="quantidadeDisponivelVenda">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Quantidade Disponível para Venda
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.quantidadeDisponivelVenda | number }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="preco">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Preço</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.preco | currency : "BRL" : "symbol" : "1.2-2" }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</div>

@@ -43,9 +43,16 @@ public class ProdutoModel implements Produtos {
             //Conversão e retorno das informações
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
+                int quantidadeTotal = rs.getInt("quantidades");
+                int quantidadeDefeitos = rs.getInt("defeitos");
+                int quantidadeDisponivelVenda = quantidadeTotal - quantidadeDefeitos;
+
                 Map<String,Object> map = new HashMap<>();
                 map.put("id", rs.getObject("id"));
-                map.put("nome", rs.getObject("nome"));
+                map.put("nomeProduto", rs.getObject("nome"));
+                map.put("quantidadeTotal", quantidadeTotal);
+                map.put("quantidadeDefeitos", quantidadeDefeitos);
+                map.put("quantidadeDisponivelVenda", quantidadeDisponivelVenda);
                 map.put("preco", rs.getObject("preco"));
                 listMap.add(map);
             }
