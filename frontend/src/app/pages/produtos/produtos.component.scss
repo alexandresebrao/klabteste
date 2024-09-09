@@ -1,0 +1,28 @@
+.table-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.mat-elevation-z8 {
+  width: 80%;
+  max-width: 1080px;
+}
+
+table {
+  width: 100%;
+
+  th.mat-header-cell {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  td.mat-cell {
+    text-align: center;
+  }
+}
+
+.mat-paginator {
+  justify-content: center;
+  margin-top: 20px;
+}
