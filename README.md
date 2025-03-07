@@ -1,7 +1,7 @@
 # KLAB FULLSTACK DESAFIO
 
 ### ATENÇÃO 
-**Criar um fork deste repo, mudar para o modo privado e convidadar o @alexandresebrao @patryckLisboa e @glfklab para colaboradores**
+**Criar um fork deste repo, mudar para o modo privado e convidadar o @alexandresebrao, @patryckLisboa, @glfklab e @vitorwercherklab para colaboradores**
 
 ### Introdução
 Antes de começarmos a falar do desafio, gostaria de agradecer 
